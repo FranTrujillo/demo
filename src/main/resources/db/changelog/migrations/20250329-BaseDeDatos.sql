@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset Francisco Trujillo:1
+--changeset Francisco Trujillo:1 runOnChange:true
 
 CREATE TABLE Persona (
     identificacion VARCHAR(255) PRIMARY KEY,
@@ -10,13 +10,13 @@ CREATE TABLE Persona (
     telefono VARCHAR(255)
 );
 
---changeset Francisco Trujillo:2
+--changeset Francisco Trujillo:2 runOnChange:true
 INSERT INTO Persona (identificacion, nombre, genero, edad, direccion, telefono) VALUES
     ('123456789', 'Jose Lema ', 'Masculino', 30, 'Otavalo sn y principal', '098254785'),
     ('987654321', 'Marianela Montalvo', 'Femenino', 25, 'Amazonas y NNUU', '097548965'),
     ('234534663', 'Juan Osorio', 'Masculino', 25, '13 junio y Equinoccial', '098874587');
 
---changeset Francisco Trujillo:3
+--changeset Francisco Trujillo:3 runOnChange:true
 CREATE TABLE Cliente (
     clienteId VARCHAR(255) PRIMARY KEY,
     identificacion VARCHAR(255),
@@ -24,14 +24,14 @@ CREATE TABLE Cliente (
     estado BOOLEAN,
     FOREIGN KEY (identificacion) REFERENCES Persona(identificacion)
 );
-
---changeset Francisco Trujillo:4
+ 
+--changeset Francisco Trujillo:4 runOnChange:true
 INSERT INTO Cliente (clienteId, identificacion, contrasena, estado) VALUES
     ('C001', '123456789', '1234', TRUE),
     ('C002', '987654321', '5678', TRUE),
     ('C003', '234534663', '1245', TRUE);
 
---changeset Francisco Trujillo:8
+--changeset Francisco Trujillo:5 runOnChange:true
 CREATE TABLE Cuenta (
     numeroCuenta VARCHAR(255) PRIMARY KEY,
     tipoCuenta VARCHAR(255),
@@ -41,14 +41,14 @@ CREATE TABLE Cuenta (
     FOREIGN KEY (clienteId) REFERENCES Cliente(clienteId)
 );
 
---changeset Francisco Trujillo:9
-INSERT INTO Cuenta (numeroCuenta, tipoCuenta, saldoInicial, estado, cliente_id) VALUES
+--changeset Francisco Trujillo:6 runOnChange:true
+INSERT INTO Cuenta (numeroCuenta, tipoCuenta, saldoInicial, estado, clienteId) VALUES
     ('001', 'Ahorros', 2000.00, TRUE, 'C001'),
     ('002', 'Corriente', 100.00, TRUE, 'C002'),
     ('003', 'Ahorros', 0.00, TRUE, 'C003'),
     ('004', 'Ahorros', 540.00, TRUE, 'C002');
 
---changeset Francisco Trujillo:10
+--changeset Francisco Trujillo:7 runOnChange:true
 CREATE TABLE Movimiento (
     movimientoId SERIAL PRIMARY KEY,
     fecha DATE,
