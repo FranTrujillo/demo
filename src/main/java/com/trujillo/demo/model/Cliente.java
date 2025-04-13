@@ -5,8 +5,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "clientes")
-public class Cliente {
+@Table(name = "cliente")
+public class Cliente extends Persona{
 
     @Id
     private String clienteId;

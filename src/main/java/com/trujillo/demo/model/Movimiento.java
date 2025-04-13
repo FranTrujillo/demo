@@ -3,6 +3,8 @@ package com.trujillo.demo.model;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -11,8 +13,9 @@ import jakarta.persistence.Table;
 public class Movimiento {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-
+    private String numeroCuenta;
     private Date fecha;
     private String tipoMovimiento;
     private double valor;
@@ -21,8 +24,9 @@ public class Movimiento {
     public Movimiento() {
     }
 
-    public Movimiento(Long Id, Date fecha, String tipoMovimiento, double valor, double saldo) {
+    public Movimiento(Long Id, String numeroCuenta, Date fecha, String tipoMovimiento, double valor, double saldo) {
         this.Id = Id;
+        this.numeroCuenta = numeroCuenta;
         this.fecha = fecha;
         this.tipoMovimiento = tipoMovimiento;
         this.valor = valor;
@@ -35,6 +39,14 @@ public class Movimiento {
 
     public void setId(Long movimientoId) {
         this.Id = movimientoId;
+    }
+
+    public String getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public void setNumeroCuenta(String numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
     }
 
     public Date getFecha() {

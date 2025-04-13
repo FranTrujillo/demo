@@ -1,24 +1,32 @@
 package com.trujillo.demo.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "cuentas")
+@Table(name = "cuenta")
 public class Cuenta {
 
     @Id
+    @Column(name = "numerocuenta")
     private String numeroCuenta;
+    @Column(name = "clientid")
+    private String clienteId;
+    @Column(name = "tipocuenta")
     private String tipoCuenta;
+    @Column(name = "saldoinicial")
     private double saldoInicial;
+    @Column(name = "estado")
     private boolean estado;
-
+    
     public Cuenta() {
     }
 
-    public Cuenta(String numeroCuenta, String tipoCuenta, double saldoInicial, boolean estado) {
+    public Cuenta(String numeroCuenta, String clienteId,String tipoCuenta, double saldoInicial, boolean estado) {
         this.numeroCuenta = numeroCuenta;
+        this.clienteId = clienteId;
         this.tipoCuenta = tipoCuenta;
         this.saldoInicial = saldoInicial;
         this.estado = estado;
@@ -30,6 +38,15 @@ public class Cuenta {
 
     public void setNumeroCuenta(String numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
+    }
+
+
+    public String getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(String clienteId) {
+        this.clienteId = clienteId;
     }
 
     public String getTipoCuenta() {

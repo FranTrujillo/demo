@@ -27,8 +27,8 @@ public class CuentaControllerTest {
     @MockBean
     private CuentaRepository cuentaRepository;
 
-    Cuenta cuenta1 = new Cuenta("123", "Ahorros", 1000.0, true);
-    Cuenta cuenta2 = new Cuenta("456", "Corriente", 2000.0, true);
+    Cuenta cuenta1 = new Cuenta("123", "C001", "Ahorros", 1000.0, true);
+    Cuenta cuenta2 = new Cuenta("456","C002" ,"Corriente", 2000.0, true);
 
     @Test
     public void testGetAllCuentas() throws Exception {
@@ -71,7 +71,7 @@ public class CuentaControllerTest {
     public void testUpdateCuenta() throws Exception {
 
         Mockito.when(cuentaRepository.existsById("123")).thenReturn(true);
-        Cuenta cuentaUpdated = new Cuenta("123", "Corriente", 1000.0, true);
+        Cuenta cuentaUpdated = new Cuenta("123","C001", "Corriente", 1000.0, true);
         Mockito.when(cuentaRepository.save(any(Cuenta.class))).thenReturn(cuentaUpdated);
 
         mockMvc.perform(put("/cuentas/123")

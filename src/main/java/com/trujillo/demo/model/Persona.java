@@ -1,19 +1,26 @@
 package com.trujillo.demo.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "personas")
+@Table(name = "persona")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Persona {
 
     @Id
+    @Column(name = "identificacion")
     private String identificacion;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "genero")
     private String genero;
+    @Column(name = "edad")
     private int edad;
+    @Column(name = "direccion")
     private String direccion;
+    @Column(name = "telefono")
     private String telefono;
 
     public Persona() {

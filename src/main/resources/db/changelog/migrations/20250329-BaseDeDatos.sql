@@ -31,32 +31,32 @@ INSERT INTO Cliente (clienteId, identificacion, contrasena, estado) VALUES
     ('C002', '987654321', '5678', TRUE),
     ('C003', '234534663', '1245', TRUE);
 
---changeset Francisco Trujillo:5
+--changeset Francisco Trujillo:8
 CREATE TABLE Cuenta (
     numeroCuenta VARCHAR(255) PRIMARY KEY,
     tipoCuenta VARCHAR(255),
     saldoInicial DECIMAL(10, 2),
     estado BOOLEAN,
-    cliente_id VARCHAR(255),
-    FOREIGN KEY (cliente_id) REFERENCES Cliente(clienteId)
+    clienteId VARCHAR(255),
+    FOREIGN KEY (clienteId) REFERENCES Cliente(clienteId)
 );
 
---changeset Francisco Trujillo:6
+--changeset Francisco Trujillo:9
 INSERT INTO Cuenta (numeroCuenta, tipoCuenta, saldoInicial, estado, cliente_id) VALUES
     ('001', 'Ahorros', 2000.00, TRUE, 'C001'),
     ('002', 'Corriente', 100.00, TRUE, 'C002'),
     ('003', 'Ahorros', 0.00, TRUE, 'C003'),
     ('004', 'Ahorros', 540.00, TRUE, 'C002');
 
---changeset Francisco Trujillo:7
+--changeset Francisco Trujillo:10
 CREATE TABLE Movimiento (
     movimientoId SERIAL PRIMARY KEY,
     fecha DATE,
     tipoMovimiento VARCHAR(255),
     valor DECIMAL(10, 2),
     saldo DECIMAL(10, 2),
-    numero_cuenta VARCHAR(255),
-    FOREIGN KEY (numero_cuenta) REFERENCES Cuenta(numeroCuenta)
+    numeroCuenta VARCHAR(255),
+    FOREIGN KEY (numeroCuenta) REFERENCES Cuenta(numeroCuenta)
 );
 
 -- INSERT INTO Movimiento (fecha, tipoMovimiento, valor, saldo, numero_cuenta) VALUES

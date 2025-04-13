@@ -28,8 +28,8 @@ public class MovimientoControllerTest {
     @MockBean
     private MovimientoRepository movimientoRepository;
 
-    Movimiento movimiento1 = new Movimiento(1L, new Date(), "Deposito", 1000.0, 5000.0);
-    Movimiento movimiento2 = new Movimiento(2L, new Date(), "Retiro", 500.0, 4500.0);
+    Movimiento movimiento1 = new Movimiento(1L,"1234", new Date(), "Deposito", 1000.0, 5000.0);
+    Movimiento movimiento2 = new Movimiento(2L,"1234", new Date(), "Retiro", 500.0, 4500.0);
 
     @Test
     public void testGetAllMovimientos() throws Exception {
@@ -70,7 +70,7 @@ public class MovimientoControllerTest {
 
     @Test
     public void testUpdateMovimiento() throws Exception {
-        Movimiento movimientoUpdated = new Movimiento(1L, new Date(), "Retiro", 500.0, 4500.0);
+        Movimiento movimientoUpdated = new Movimiento(1L,"1234", new Date(), "Retiro", 500.0, 4500.0);
 
         Mockito.when(movimientoRepository.findById(1L)).thenReturn(Optional.of(movimiento1));
         Mockito.when(movimientoRepository.save(any(Movimiento.class))).thenReturn(movimientoUpdated);
