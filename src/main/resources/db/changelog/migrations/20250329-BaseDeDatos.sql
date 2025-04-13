@@ -37,8 +37,8 @@ CREATE TABLE Cuenta (
     tipoCuenta VARCHAR(255),
     saldoInicial DECIMAL(10, 2),
     estado BOOLEAN,
-    clienteId VARCHAR(255),
-    FOREIGN KEY (clienteId) REFERENCES Cliente(clienteId)
+    cliente_id VARCHAR(255),
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(clienteId)
 );
 
 --changeset Francisco Trujillo:9

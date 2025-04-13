@@ -6,6 +6,5 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <include file="db/changelog/migrations/20250329-BaseDeDatos.sql"/>
-    <include file="db/changelog/migrations/20250412-UpdateTables.sql"/>
 
 </databaseChangeLog>
