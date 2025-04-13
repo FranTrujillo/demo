@@ -1,9 +1,13 @@
 package com.trujillo.demo.controlller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.trujillo.demo.model.Cliente;
 import com.trujillo.demo.model.Cuenta;
+import com.trujillo.demo.repository.ClienteRepository;
 import com.trujillo.demo.repository.CuentaRepository;
 
 import java.util.List;
@@ -14,6 +18,8 @@ public class CuentaController {
 
     @Autowired
     private CuentaRepository cuentaRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     @GetMapping
     public List<Cuenta> getAllCuentas() {
@@ -21,12 +27,17 @@ public class CuentaController {
     }
 
     @GetMapping("/{numeroCuenta}")
-    public Cuenta getCuentaByNumeroCuenta(@PathVariable String numeroCuenta) {
-        return cuentaRepository.findById(numeroCuenta).orElse(null);
+    public Cuenta getCuentaByNumeroCuenta(@PathVariable String numeroCuenta){
+        return cuentaRepository.findById(numeroCuenta).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public Cuenta createCuenta(@RequestBody Cuenta cuenta) {
+    public Cuenta createCuenta(@RequestBody Cuenta cuenta) throws Exception {
+        if (cuenta.getClienteId() != null) {
+            Cliente cliente = clienteRepository.findByClienteId(cuenta.getClienteId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+            cuenta.setClienteId(cliente.getClienteId());
+        } 
         return cuentaRepository.save(cuenta);
     }
 
@@ -34,12 +45,9 @@ public class CuentaController {
     public Cuenta updateCuenta(@PathVariable String numeroCuenta, @RequestBody Cuenta cuenta) {
         if (cuentaRepository.existsById(numeroCuenta)) {
             cuenta.setNumeroCuenta(numeroCuenta);
-            cuenta.setTipoCuenta(cuenta.getTipoCuenta());
-            cuenta.setSaldoInicial(cuenta.getSaldoInicial());
-            cuenta.setEstado(cuenta.isEstado());
             return cuentaRepository.save(cuenta);
         }
-        return null;
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{numeroCuenta}")

@@ -12,7 +12,7 @@ public class Cuenta {
     @Id
     @Column(name = "numerocuenta")
     private String numeroCuenta;
-    @Column(name = "clientid")
+    @Column(name = "clienteid")
     private String clienteId;
     @Column(name = "tipocuenta")
     private String tipoCuenta;
@@ -20,7 +20,7 @@ public class Cuenta {
     private double saldoInicial;
     @Column(name = "estado")
     private boolean estado;
-    
+
     public Cuenta() {
     }
 
@@ -39,7 +39,6 @@ public class Cuenta {
     public void setNumeroCuenta(String numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
-
 
     public String getClienteId() {
         return clienteId;
@@ -72,5 +71,4 @@ public class Cuenta {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
 }

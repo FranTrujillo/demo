@@ -1,29 +1,28 @@
 package com.trujillo.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+
+@Entity
 @Table(name = "persona")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Persona {
 
     @Id
-    @Column(name = "identificacion")
     private String identificacion;
-    @Column(name = "nombre")
     private String nombre;
-    @Column(name = "genero")
     private String genero;
-    @Column(name = "edad")
     private int edad;
-    @Column(name = "direccion")
     private String direccion;
-    @Column(name = "telefono")
     private String telefono;
 
-    public Persona() {
+    public Persona(Persona persona) {
     }
 
     public Persona(String identificacion, String nombre, String genero, int edad, String direccion, String telefono) {

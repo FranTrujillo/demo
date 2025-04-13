@@ -1,7 +1,9 @@
 package com.trujillo.demo.controlller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.trujillo.demo.model.Cliente;
 import com.trujillo.demo.repository.ClienteRepository;
@@ -20,9 +22,9 @@ public class ClienteController {
         return clienteRepository.findAll();
     }
 
-    @GetMapping("/{clienteId}")
-    public Cliente getClienteById(@PathVariable String clienteId) {
-        return clienteRepository.findById(clienteId).orElse(null);
+    @GetMapping("/{identificacion}")
+    public Cliente getClienteById(@PathVariable String identificacion) {
+        return clienteRepository.findById(identificacion).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
@@ -30,17 +32,17 @@ public class ClienteController {
         return clienteRepository.save(cliente);
     }
 
-    @PutMapping("/{clienteId}")
-    public Cliente updateCliente(@PathVariable String clienteId, @RequestBody Cliente cliente) {
-        if (clienteRepository.existsById(clienteId)) {
-            cliente.setClienteId(clienteId);
+    @PutMapping("/{identificacion}")
+    public Cliente updateCliente(@PathVariable String identificacion, @RequestBody Cliente cliente) {
+        if (clienteRepository.existsById(identificacion)) {
+            cliente.setClienteId(identificacion);
             return clienteRepository.save(cliente);
         }
         return null;
     }
 
-    @DeleteMapping("/{clienteId}")
-    public void deleteCliente(@PathVariable String clienteId) {
-        clienteRepository.deleteById(clienteId);
+    @DeleteMapping("/{identificacion}")
+    public void deleteCliente(@PathVariable String identificacion) {
+        clienteRepository.deleteById(identificacion);
     }
 }

@@ -1,7 +1,9 @@
 package com.trujillo.demo;
 
 import com.trujillo.demo.controlller.CuentaController;
+import com.trujillo.demo.model.Cliente;
 import com.trujillo.demo.model.Cuenta;
+import com.trujillo.demo.repository.ClienteRepository;
 import com.trujillo.demo.repository.CuentaRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -26,9 +28,12 @@ public class CuentaControllerTest {
 
     @MockBean
     private CuentaRepository cuentaRepository;
+    @MockBean
+    private ClienteRepository clienteRepository;
 
     Cuenta cuenta1 = new Cuenta("123", "C001", "Ahorros", 1000.0, true);
     Cuenta cuenta2 = new Cuenta("456","C002" ,"Corriente", 2000.0, true);
+    Cliente cliente1 = new Cliente("C001", "password123", true);
 
     @Test
     public void testGetAllCuentas() throws Exception {
@@ -56,7 +61,7 @@ public class CuentaControllerTest {
 
     @Test
     public void testCreateCuenta() throws Exception {
-
+        Mockito.when(clienteRepository.findByClienteId("C001")).thenReturn(Optional.of(cliente1)); 
         Mockito.when(cuentaRepository.save(any(Cuenta.class))).thenReturn(cuenta1);
 
         mockMvc.perform(post("/cuentas")
